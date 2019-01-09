@@ -62,7 +62,7 @@ def post_random_line(feed_file, twitter_config, ask_before_sending=True, remove_
 
     if ask_before_sending:
         print("Do you wish to send this line? y/n\n" + random_line)
-        input_string = raw_input().lower()
+        input_string = input().lower()
         if input_string != "y" and input_string != "Y":
             quit(abort_exit_code)
 
