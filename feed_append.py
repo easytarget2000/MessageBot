@@ -1,11 +1,10 @@
 import configparser
-import os
 import re
 import sys
 
 no_params_exit_code = -1
 similarity_abort_exit_code = -9
-verbose = True
+verbose = False
 punctuation_regex = r"\n|[^\w\s]"
 
 
