@@ -1,6 +1,6 @@
 [Files]
-feed_file = "~/message_bot/feed.txt"
-feed_file_shuffled = "~/message_bot/feed_shuffled.txt"
+feed_file = "/home/user/message_bot/feed.txt"
+feed_file_shuffled = "/home/user/message_bot/feed_shuffled.txt"
 
 [TwitterAPI]
 twitter_consumer_key = ""
