@@ -11,14 +11,16 @@ def main():
 
 	feed_filename = files_config["feed_file"]
 
-	feed_file = open(feed_filename, "r+")
-	feed_lines = feed_file.readlines()
-	print(construct_message(feed_lines))
+	feed_lines = open(feed_filename, "r+").readlines()
+
+	message = construct_message(feed_lines)
+	print()
+	print(message)
 
 
 def construct_message(feed_lines):
 	message = "\""
-	num_of_mixed_lines = random.randrange(2, 6)
+	num_of_mixed_lines = random.randrange(3, 7)
 	num_of_feed_lines = len(feed_lines)
 	beginning_of_sentence = True
 
@@ -45,8 +47,7 @@ def construct_message(feed_lines):
 			word = words_in_line[word_index]
 
 			if beginning_of_sentence:
-				word = uppercase_optionally(word)
-				beginning_of_sentence = False
+				word = word.capitalize()
 			else:
 				word = lowercase_optionally(word)
 
@@ -55,12 +56,13 @@ def construct_message(feed_lines):
 
 			beginning_of_sentence = end_of_sentence(word)
 
-			if len(message) + len(word) <= 64:
+			if len(message) + len(word) <= 140:
 				message += word
 			else:
 				break
 
 	return message + ".\""
+
 
 def allow_case_change(word):
 	return word != "I" and word != "I'm" and word != "I've" and word != "I'll"
@@ -70,13 +72,6 @@ def lowercase_optionally(word):
 	if allow_case_change(word):
 		return word.lower()
 	else: 
-		return word
-
-
-def uppercase_optionally(word):
-	if allow_case_change(word):
-		return word.upper()
-	else:
 		return word
 
 
