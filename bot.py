@@ -45,7 +45,7 @@ def prepare_shuffled_feed(shuffled_feed_filename, feed_filename):
         feed_shuffled.writelines(feed_lines)
         feed_shuffled.close()
 
-    return open(shuffled_feed_filename, "r")
+    return open(shuffled_feed_filename, "r+")
 
 
 def post_random_line(feed_file, twitter_config, ask_before_sending=True, remove_after=True):
