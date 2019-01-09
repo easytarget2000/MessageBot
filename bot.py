@@ -3,7 +3,6 @@ import configparser
 import datetime
 import os
 import random
-import sys
 import tweepy
 
 abort_exit_code = -2
@@ -38,7 +37,7 @@ def prepare_shuffled_feed(shuffled_feed_filename, feed_filename):
         feed_lines = open(feed_filename, "r").readlines()
         random.shuffle(feed_lines)
     else:
-        print (shuffled_feed_filename + " exists.")
+        print(shuffled_feed_filename + " exists.")
 
     if write_feed_shuffled:
         # If needed, write the shuffled feed into a separate file.
@@ -85,7 +84,7 @@ def send_tweet(tweet, twitter_config):
 
     time = datetime.datetime.now().time()
     print("Sent:\n" + tweet + str(time))
-    print
+    print()
 
 
 main()

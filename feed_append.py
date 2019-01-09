@@ -1,25 +1,31 @@
+import configparser
 import re
 import sys
 
 no_params_exit_code = -1
 similarity_abort_exit_code = -9
 verbose = False
-feed_file_name = "feed.txt"
-shuffled_feed_file_name = "feed_shuffled.txt"
 punctuation_regex = r'[^\w\s]'
 
 
 def main():
     arguments = sys.argv
     if len(arguments) < 2:
-        print "ERROR: No String provided."
+        print("ERROR: No String provided.")
         quit(no_params_exit_code)
 
     new_line_raw = ' '.join(arguments[1:])
     new_line = "\"" + new_line_raw + "\""
 
-    feed_file = prepare_file(feed_file_name)
-    shuffled_feed_file = prepare_file(shuffled_feed_file_name)
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    files_config = config["Files"]
+
+    feed_filename = files_config["feed_file"]
+    feed_shuffled_filename = files_config["feed_file_shuffled"]
+
+    feed_file = prepare_file(feed_filename)
+    shuffled_feed_file = prepare_file(feed_shuffled_filename)
 
     append_line_if_needed(new_line, feed_file, shuffled_feed_file)
     quit(0)
@@ -33,7 +39,7 @@ def find_similar_lines(lines, other_line, sensitivity=0.8):
         if comparison_value >= sensitivity:
             similar_lines.append(line)
             if verbose:
-                print "Comparing 1) " + line + " with 2) " + other_line + ": " + str(comparison_value)
+                print("Comparing 1) " + line + " with 2) " + other_line + ": " + str(comparison_value))
 
     return similar_lines
 
@@ -57,13 +63,13 @@ def extract_words(string):
 
 
 def append_line(line, opened_file):
-    print "Appending " + line + " to " + opened_file.name + "."
+    print("Appending " + line + " to " + opened_file.name + ".")
     opened_file.writelines("\n" + line)
 
     opened_file.seek(0)
     num_of_lines = len(opened_file.readlines())
-    print "Feed file now contains " + str(num_of_lines) + " lines."
-    print
+    print("Feed file now contains " + str(num_of_lines) + " lines.")
+    print()
 
 
 def append_line_if_needed(new_line, feed_file, shuffled_feed_file):
@@ -73,15 +79,14 @@ def append_line_if_needed(new_line, feed_file, shuffled_feed_file):
 
         similar_lines_joined = ''.join(similar_lines)
 
-        print feed_file_name + " already contains these lines that are similar:\n" + similar_lines_joined
-        print
-        print "Do you wish to add " + new_line + "? y/n"
-        input_string = raw_input().lower()
+        print(feed_file.name + " already contains these lines that are similar:\n" + similar_lines_joined + "\n")
+        print("Do you wish to add " + new_line + "? y/n")
+        input_string = input().lower()
         if input_string != "y" and input_string != "Y":
             quit(similarity_abort_exit_code)
-        print
+        print()
 
-    # append_line(new_line, feed_file)
+    append_line(new_line, feed_file)
     feed_file.close()
     append_line(new_line, shuffled_feed_file)
     shuffled_feed_file.close()

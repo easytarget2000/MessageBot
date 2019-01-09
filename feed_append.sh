@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python feed_append.py $1
+python3 feed_append.py $1
 
 # echo "Downloading $FEED_FILE and $SHUFFLED_FEED_FILE."
 # sftp $SFTP_USER@$SFTP_HOST <<EOF
