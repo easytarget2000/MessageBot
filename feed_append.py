@@ -1,11 +1,12 @@
 import configparser
+import os
 import re
 import sys
 
 no_params_exit_code = -1
 similarity_abort_exit_code = -9
-verbose = False
-punctuation_regex = r'[^\w\s]'
+verbose = True
+punctuation_regex = r"\n|[^\w\s]"
 
 
 def main():
@@ -35,11 +36,11 @@ def find_similar_lines(lines, other_line, sensitivity=0.8):
     similar_lines = []
     for line in lines:
         comparison_value = compare_strings(line, other_line)
+        if verbose:
+            print("Comparing 1) " + line + " with 2) " + other_line + ": " + str(comparison_value))
 
         if comparison_value >= sensitivity:
             similar_lines.append(line)
-            if verbose:
-                print("Comparing 1) " + line + " with 2) " + other_line + ": " + str(comparison_value))
 
     return similar_lines
 
@@ -58,11 +59,12 @@ def compare_strings(string_1, string_2):
 
 def extract_words(string):
     cleaned_string = string.lower()
-    cleaned_string = re.sub(punctuation_regex, '', cleaned_string)
-    return cleaned_string.split(' ')
+    cleaned_string = re.sub(punctuation_regex, "", cleaned_string)
+    return cleaned_string.split(" ")
 
 
 def append_line(line, opened_file):
+    opened_file.readlines()
     print("Appending " + line + " to " + opened_file.name + ".")
     opened_file.writelines("\n" + line)
 
