@@ -24,7 +24,7 @@ def main():
 
     shuffled_feed_file = prepare_shuffled_feed(feed_shuffled_filename, feed_filename)
 
-    twitter_config = config["TwitterAPI"]
+    twitter_config = config["TwitterAPIDefault"]
     post_random_line(shuffled_feed_file, twitter_config, ask_before_sending)
 
 

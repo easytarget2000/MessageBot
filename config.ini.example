@@ -1,8 +1,17 @@
+[Options]
+;verbose = True
+
 [Files]
 feed_file = "/home/user/message_bot/feed.txt"
 feed_file_shuffled = "/home/user/message_bot/feed_shuffled.txt"
 
-[TwitterAPI]
+[TwitterAPIDefault]
+twitter_consumer_key = ""
+twitter_consumer_secret = ""
+twitter_access_key = ""
+twitter_access_secret = ""
+
+[TwitterAPIPoetry]
 twitter_consumer_key = ""
 twitter_consumer_secret = ""
 twitter_access_key = ""
