@@ -1,8 +1,8 @@
 # Message Bot
 
-A Python bot that randomly takes lines of text from a feed file. Currently only supports Twitter via Tweepy.
+A Python bot that randomly takes lines of text from a feed file. Currently only supports Twitter via Tweepy. Operates in non-repeating "regular" mode and in text-generating "poetry" mode.
 
-### Process flow: 
+### Regular Process flow: 
 1. Lines are added to a feed file.
 2. The feed file is copied and randomised into a temporary file.
 3. Lines are read and posted from the temporary file.
